@@ -1,5 +1,5 @@
 [build]
-  command = "quarto render"
+  command = "quarto render ."
   publish = "_site"
 
 [build.environment]
@@ -7,8 +7,9 @@
 
 [[build.lifecycle]]
   name = "Install Quarto"
-  lifecycle = "beforeInstall"
+  lifecycle = "install"
   command = """
-    curl -L -o quarto.deb https://github.com/quarto-dev/quarto-cli/releases/download/v1.4.550/quarto-1.4.550-linux-amd64.deb
-    sudo dpkg -i quarto.deb
+    curl -LO https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.tar.gz
+    tar -xzf quarto-${QUARTO_VERSION}-linux-amd64.tar.gz
+    export PATH=$PATH:$(pwd)/quarto-${QUARTO_VERSION}/bin
   """
